@@ -21,4 +21,8 @@ export class ContactService {
   createContact(contact: IContact) {
     return this.http.post<IContact>(`${environment.apiUrl}/contacts`, contact);
   }
+
+  getContacts() {
+    return this.http.get<IContact[]>(`${environment.apiUrl}/contacts`);
+  }
 }

@@ -1,10 +1,13 @@
+* {
+  text-decoration: none !important;
+}
+
 .contacts {
   margin-top: 20px;
   background-color: #ffffff;
   border: 0.1px solid #CED4DA;
   border-radius: .375rem;
-  max-height: 300px;
-  overflow-y: auto;
+  margin-bottom: 30px;
 }
 
 .contacts .contact {
@@ -18,7 +21,6 @@
 
 .contacts .contact:hover {
   background-color: #cecece;
-  cursor: pointer;
 }
 
 .contacts .contact:not(:last-child) {
@@ -26,7 +28,6 @@
 }
 
 .contacts .contact .photo {
-  background-color: rgb(146, 146, 146);
   color: #fff;
   width: 40px;
   height: 40px;
