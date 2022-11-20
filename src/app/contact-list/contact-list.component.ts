@@ -42,7 +42,7 @@ export class ContactListComponent implements OnInit {
         })
   
         return items.name.toLocaleLowerCase('tr').includes(this.searchText.toLocaleLowerCase('tr')) 
-               || items.address.includes(this.searchText)
+               || items.address.toLocaleLowerCase('tr').includes(this.searchText.toLocaleLowerCase('tr'))
                || phones.length > 0
                || emails.length > 0
       })
