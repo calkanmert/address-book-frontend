@@ -4,6 +4,7 @@ import { IPhoneType } from "../interfaces/phone-type.interface";
 import { IEmailType } from "../interfaces/email-type.interface";
 import { HttpClient } from "@angular/common/http";
 import { IContact } from "../interfaces/contact.interface";
+import { map } from "rxjs";
 
 @Injectable()
 export class ContactService {
@@ -28,5 +29,9 @@ export class ContactService {
 
   getContact(id: string) {
     return this.http.get<IContact>(`${environment.apiUrl}/contacts/${id}`);
+  }
+
+  deleteContact(id: string) {
+    return this.http.delete<string>(`${environment.apiUrl}/contacts/${id}`).pipe(map((response: any) => response.message));
   }
 }

@@ -11,19 +11,38 @@ import { ContactService } from '../services/contact.service';
 })
 export class ShowContactComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private contactService: ContactService, private router: Router) {}
+  contact_id = '';
+
+  constructor(private route: ActivatedRoute, private contactService: ContactService, private router: Router) {
+    this.route.params.subscribe(params => {
+      this.contact_id = params['id'];
+    })
+  }
 
   contact: IContact | null = null;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.contactService.getContact(params['id']).subscribe((contact) => {
+    
+      this.contactService.getContact(this.contact_id).subscribe((contact) => {
         this.contact = contact
       }, (err) => {
         if (err.status == 404)
           this.router.navigate([''])
       })
-    })
+ 
+  }
+
+  deleteContact() {
+    let isConfirmed = confirm('Are you sure?');
+    if (isConfirmed) {
+      this.contactService.deleteContact(this.contact_id).subscribe(message => {
+        if (message == 'removed')
+          this.router.navigate([''])
+      }, (err) => {
+        if (err)
+          this.router.navigate(['']);
+      })
+    }
   }
 
 }
