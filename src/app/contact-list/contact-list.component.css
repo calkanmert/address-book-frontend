@@ -28,6 +28,7 @@
 }
 
 .contacts .contact .photo {
+  background: linear-gradient(to right, #e52d27, #b31217); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: #fff;
   width: 40px;
   height: 40px;

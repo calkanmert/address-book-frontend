@@ -3,7 +3,7 @@
     <div class="col-md-6 mt-2">
       <div class="d-flex align-items-center justify-content-between">
         <span class="text-muted">{{ filteredContacts.length }} Contact</span>
-        <a [routerLink]="['new']" class="btn btn-dark">New Contact</a>
+        <a [routerLink]="['new']" class="btn btn-dark bg-black">New Contact</a>
       </div>
       <div class="search">
         <input type="text" [(ngModel)]="searchText" (ngModelChange)="search()" class="form-control mt-2" placeholder="Search name, address, phone, email">
@@ -12,16 +12,12 @@
         Not Found :/
       </div>
       <div class="contacts" *ngIf="filteredContacts.length > 0">
-        <a href="#">
-          <div class="contact" *ngFor="let contact of filteredContacts">
-            <div>
-            </div>
-            <div class="photo bg-dark">
-              {{ contact.name[0] }}
-            </div>
-            <div class="name text-dark">
-              {{ contact.name }}
-            </div>
+        <a class="contact" [routerLink]="['/show', contact._id]" *ngFor="let contact of filteredContacts">
+          <div class="photo">
+            {{ contact.name[0] }}
+          </div>
+          <div class="name text-dark">
+            {{ contact.name }}
           </div>
         </a>
       </div>  

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IEmailType } from 'src/app/interfaces/email-type.interface';
 import { IPhoneType } from 'src/app/interfaces/phone-type.interface';
 import { ContactService } from 'src/app/services/contact.service';
@@ -34,7 +35,7 @@ export class NewContactComponent implements OnInit {
     emails: new FormArray<FormGroup>([])
   });
 
-  constructor(private contactService: ContactService, private errorService: ErrorService) { 
+  constructor(private contactService: ContactService, private errorService: ErrorService, private router: Router) { 
     this.contactService.getPhoneTypes().subscribe(phoneTypes => {
       this.phoneTypes = phoneTypes;
       this.newContactForm.controls.phones.controls[0].controls['phone_type'].setValue(this.phoneTypes[0]._id)
@@ -120,8 +121,8 @@ export class NewContactComponent implements OnInit {
     if (data.emails.length < 1)
       delete data.emails;
     
-    this.contactService.createContact(data).subscribe(test => {
-      alert('Contact created')
+    this.contactService.createContact(data).subscribe(contact => {
+      this.router.navigate(['/show', contact._id])
     }, async (error) => {
       if (error.error.message === 'contact_already_exists')
         alert('Contact already exists!');

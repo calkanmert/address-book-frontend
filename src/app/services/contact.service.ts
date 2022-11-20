@@ -25,4 +25,8 @@ export class ContactService {
   getContacts() {
     return this.http.get<IContact[]>(`${environment.apiUrl}/contacts`);
   }
+
+  getContact(id: string) {
+    return this.http.get<IContact>(`${environment.apiUrl}/contacts/${id}`);
+  }
 }

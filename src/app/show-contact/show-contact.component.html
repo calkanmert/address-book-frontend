@@ -1,1 +1,39 @@
-<p>show-contact works!</p>
+<div class="container mb-5">
+  <div *ngIf="contact" class="row mt-5 justify-content-center">
+    <div class="col-md-4 bg-white shadow-md border py-3 px-3">
+      <div class="d-flex gap-1">
+        <button [routerLink]="['']" class="btn btn-dark bg-black"><-</button>
+        <button class="btn btn-primary">Edit</button>
+      </div>
+      <div class="d-flex align-items-center flex-column mt-2">
+        <div class="photo">
+          {{ contact.name[0] }}
+        </div>
+        <div class="text-black mt-2" style="font-size: 1.3rem;">{{ contact.name }}</div>
+        <p class="text-muted">{{ contact.address }}</p>
+      </div>
+      <ul class="list-group mt-1">
+        <li class="list-group-item bg-black text-white">Note</li>
+        <li class="list-group-item" *ngIf="contact.note.length > 0">{{ contact.note }}</li>
+        <li class="list-group-item" *ngIf="contact.note == ''">
+          <span class="text-secondary">Note not specified.</span>
+        </li>
+      </ul>
+      <ul class="list-group mt-3">
+        <li class="list-group-item bg-black text-white">Phones</li>
+        <li class="list-group-item" *ngFor="let phone of contact.phones">
+          <span class="badge text-bg-danger">{{ phone.phone_type.value }}</span> {{ phone.value }}
+        </li>
+      </ul>
+      <ul class="list-group mt-3">
+        <li class="list-group-item bg-black text-white">Emails</li>
+        <li class="list-group-item" *ngFor="let email of contact.emails">
+          <span class="badge text-bg-danger">{{ email.email_type.value }}</span> {{ email.value }}
+        </li>
+        <li class="list-group-item" *ngIf="contact.emails.length == 0">
+          <span class="text-secondary">Email not specified.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
