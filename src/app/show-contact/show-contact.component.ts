@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IContact } from '../interfaces/contact.interface';
 import { ContactService } from '../services/contact.service';
 
@@ -11,7 +11,7 @@ import { ContactService } from '../services/contact.service';
 })
 export class ShowContactComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private contactService: ContactService) {}
+  constructor(private route: ActivatedRoute, private contactService: ContactService, private router: Router) {}
 
   contact: IContact | null = null;
 
@@ -19,6 +19,9 @@ export class ShowContactComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.contactService.getContact(params['id']).subscribe((contact) => {
         this.contact = contact
+      }, (err) => {
+        if (err.status == 404)
+          this.router.navigate([''])
       })
     })
   }
