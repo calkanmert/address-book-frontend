@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  deploy:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "47:6a:ad:c7:ab:15:d5:32:39:d4:f9:75:d8:ec:bd:a1"  
+      - run:
+          name: deploy
+          command: |
+            ssh $SSH_USER@$SSH_HOST bash -c "'
+              cd ${FRONTEND_PATH}
+              sudo sudo docker compose down
+              sudo git pull
+              sudo docker compose up --build -d
+            '";
+workflows:
+  deploy:
+    jobs:
+      - deploy:
