@@ -34,4 +34,8 @@ export class ContactService {
   deleteContact(id: string) {
     return this.http.delete<string>(`${environment.apiUrl}/contacts/${id}`).pipe(map((response: any) => response.message));
   }
+
+  editContact(id: string, contact: IContact) {
+    return this.http.patch<IContact>(`${environment.apiUrl}/contacts/${id}`, contact);
+  }
 }

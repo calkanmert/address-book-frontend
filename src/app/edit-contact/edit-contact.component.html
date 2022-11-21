@@ -1,1 +1,59 @@
-<p>edit-contact works!</p>
+<div class="container mb-5">
+  <div class="row mt-5 justify-content-center">
+    <div class="col-md-4 bg-white shadow-md border py-3 px-3">
+      <div class="text-black text-center" style="font-size: 1.3rem;">EDIT CONTACT</div>
+      <form [formGroup]="newContactForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3 mt-3">
+          <label class="form-label">Name</label>
+          <input (ngModelChange)="resetError('name')" type="text" formControlName="name" required class="form-control" [class.is-invalid]="errors.name">
+          <span *ngIf="errors.name" class="text-danger text-sm">{{ errors.name }}</span>
+        </div>
+        <div class="mb-3 mt-3">
+          <label class="form-label">Address</label>
+          <textarea (ngModelChange)="resetError('address')" class="form-control" formControlName="address" rows="1" [class.is-invalid]="errors.address"></textarea>
+          <span *ngIf="errors.address" class="text-danger text-sm">{{ errors.address }}</span>
+        </div>
+        <div class="mb-3 mt-3">
+          <label class="form-label">Note <small class="text-muted">(Optional)</small></label>
+          <textarea class="form-control" formControlName="note" rows="1"></textarea>
+        </div>
+        <div class="mb-3" formArrayName="phones">
+          <div class="d-flex justify-content-between gap-3">Phones <div class="d-flex gap-3"><span (click)="addPhoneField()" class="text-primary user-select-none cursor-pointer">Add Field</span> <span (click)="deletePhoneField()" class="text-danger user-select-none cursor-pointer">Delete Field</span></div></div>
+          <span *ngIf="errors.phones" class="mt-2 text-danger text-xs">{{ errors["phones"] }}</span>
+          <div class="mt-3 mb-3">
+            <div class="row mt-2" *ngFor="let phone of phones.controls; let i=index"  [formGroupName]="i">
+              <div class="col-4">
+                <select class="form-select" formControlName="phone_type">
+                  <option value="{{ phone._id }}" *ngFor="let phone of phoneTypes ">{{ phone.value }}</option>
+                </select>
+              </div>
+              <div class="col">
+                <input type="text" (ngModelChange)="resetError('phones['+i+'].value')" class="form-control" formControlName="value" placeholder="Phone" [class.is-invalid]="errors['phones['+i+'].value']">
+                <span *ngIf="errors['phones['+i+'].value']" class="text-danger text-sm">{{ errors["phones["+i+"].value"] }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3" formArrayName="emails">
+          <div class="mb-3 d-flex justify-content-between gap-3"><span>Emails <small class="text-muted">(Optional)</small></span> <div class="d-flex gap-3"><span (click)="addEmailField()" class="text-primary user-select-none cursor-pointer">Add Field</span> <span (click)="deleteEmailField()" class="text-danger user-select-none cursor-pointer">Delete Field</span></div></div>
+          <div class="mb-3">
+            <div class="row mt-2" *ngFor="let email of emails.controls; let i=index"  [formGroupName]="i">
+              <div class="col-4">
+                <select class="form-select" formControlName="email_type">
+                  <option value="{{ email._id }}" *ngFor="let email of emailTypes ">{{ email.value }}</option>
+                </select>
+              </div>
+              <div class="col">
+                <input type="text" (ngModelChange)="resetError('emails['+i+'].value')" class="form-control" formControlName="value" placeholder="Email" [class.is-invalid]="errors['emails['+i+'].value']">
+                <span *ngIf="errors['emails['+i+'].value']" class="text-danger text-sm">{{ errors["emails["+i+"].value"] }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-dark bg-black btn-lg mt-3" style="width: 100%">Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

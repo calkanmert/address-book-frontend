@@ -22,18 +22,16 @@ export class ShowContactComponent implements OnInit {
   contact: IContact | null = null;
 
   ngOnInit(): void {
-    
-      this.contactService.getContact(this.contact_id).subscribe((contact) => {
-        this.contact = contact
-      }, (err) => {
-        if (err.status == 404)
-          this.router.navigate([''])
-      })
- 
+    this.contactService.getContact(this.contact_id).subscribe((contact) => {
+      this.contact = contact
+    }, (err) => {
+      if (err.status == 404)
+        this.router.navigate([''])
+    })
   }
 
   deleteContact() {
-    let isConfirmed = confirm('Are you sure?');
+    const isConfirmed = confirm('Are you sure?');
     if (isConfirmed) {
       this.contactService.deleteContact(this.contact_id).subscribe(message => {
         if (message == 'removed')
