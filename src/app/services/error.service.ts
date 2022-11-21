@@ -19,6 +19,9 @@ export class ErrorService {
       case 'one_phone_required':
           return 'At least one phone required!';
           break;
+      case 'numeric_field':
+        return 'Numeric field!';
+        break;
       default:
         return 'Hata!';
     }

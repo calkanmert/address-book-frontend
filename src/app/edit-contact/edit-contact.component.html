@@ -28,7 +28,7 @@
                 </select>
               </div>
               <div class="col">
-                <input type="text" (ngModelChange)="resetError('phones['+i+'].value')" class="form-control" formControlName="value" placeholder="Phone" [class.is-invalid]="errors['phones['+i+'].value']">
+                <input type="number" (ngModelChange)="resetError('phones['+i+'].value')" class="form-control" formControlName="value" placeholder="Phone" [class.is-invalid]="errors['phones['+i+'].value']">
                 <span *ngIf="errors['phones['+i+'].value']" class="text-danger text-sm">{{ errors["phones["+i+"].value"] }}</span>
               </div>
             </div>
